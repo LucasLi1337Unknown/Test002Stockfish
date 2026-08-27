@@ -37,12 +37,16 @@ export class StockfishClient {
     };
 
     this.worker.onerror = (event) => {
-      this.onState("error");
-      this.onLine(
-        "WORKER ERROR: " +
-        (event.message || "Unknown Stockfish error")
-      );
-    };
+  this.onState("error");
+
+  this.onLine(
+    `WORKER ERROR:
+message=${event.message || "none"}
+file=${event.filename || "none"}
+line=${event.lineno || "none"}
+column=${event.colno || "none"}`
+  );
+};
 
     this.send("uci");
   }
