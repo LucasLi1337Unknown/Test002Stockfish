@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Test002Stockfish - browser chess + Stockfish WASM experiment" />
+  <title>Test002Stockfish</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">GitHub + WASM experiment</p>
+        <h1>Test002Stockfish</h1>
+      </div>
+      <div id="engineBadge" class="badge badge-waiting">ENGINE STARTING</div>
+    </header>
+
+    <section class="layout">
+      <div class="board-column">
+        <div class="board-wrap">
+          <div id="board" class="board" aria-label="Chess board"></div>
+        </div>
+
+        <div class="controls">
+          <button id="newGameBtn" class="primary">New Game</button>
+          <button id="undoBtn">Undo</button>
+          <button id="flipBtn">Flip Board</button>
+          <button id="analyzeBtn">Analyze</button>
+        </div>
+
+        <p id="status" class="status">Loading chess board…</p>
+      </div>
+
+      <aside class="panel">
+        <section class="card">
+          <h2>Stockfish</h2>
+
+          <div class="metric-grid">
+            <div class="metric">
+              <span class="metric-label">Evaluation</span>
+              <strong id="evaluation">—</strong>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Best move</span>
+              <strong id="bestMove">—</strong>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Depth</span>
+              <strong id="depthReadout">12</strong>
+            </div>
+            <div class="metric">
+              <span class="metric-label">Turn</span>
+              <strong id="turnReadout">White</strong>
+            </div>
+          </div>
+
+          <label class="slider-row" for="depthSlider">
+            <span>Analysis depth</span>
+            <input id="depthSlider" type="range" min="6" max="20" value="12" />
+          </label>
+
+          <div class="pv-box">
+            <span>Principal variation</span>
+            <div id="pv">Waiting for analysis…</div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-title-row">
+            <h2>Moves</h2>
+            <span id="moveCount">0 ply</span>
+          </div>
+          <div id="moveList" class="move-list">No moves yet.</div>
+        </section>
+
+        <section class="card console-card">
+          <div class="card-title-row">
+            <h2>Engine console</h2>
+            <button id="clearConsoleBtn" class="mini">Clear</button>
+          </div>
+          <pre id="console">Booting…</pre>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
