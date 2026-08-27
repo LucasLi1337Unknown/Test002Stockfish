@@ -10,8 +10,8 @@
   --text: #f5f7fa;
   --muted: #9ea8b4;
   --border: #2d3540;
-  --light-square: #e8edf3;
-  --dark-square: #68788b;
+--light-square: #f0d9b5;
+--dark-square: #b58863;
   --selected: #ffd166;
   --legal: rgba(28, 194, 118, 0.72);
   --capture: rgba(255, 95, 86, 0.8);
@@ -165,7 +165,7 @@ h2 {
   position: relative;
   display: grid;
   place-items: center;
-  font-size: clamp(30px, 6.3vw, 72px);
+  font-size: clamp(36px, 7vw, 82px);
   line-height: 1;
   cursor: pointer;
 }
@@ -202,7 +202,9 @@ h2 {
 .piece {
   position: relative;
   z-index: 2;
-  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  text-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.45),
+    0 0 1px rgba(255, 255, 255, 0.35);
 }
 
 .coord {
