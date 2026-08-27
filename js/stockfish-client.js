@@ -12,8 +12,8 @@ export class StockfishClient {
     this.onState("loading");
 
     this.worker = new Worker(
-      "./stockfish/stockfish-18-lite-single.js"
-    );
+  "./stockfish-18-lite-single.js"
+);
 
     this.worker.onmessage = (event) => {
       const text = String(event.data);
