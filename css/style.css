@@ -1,0 +1,396 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color-scheme: dark;
+  --bg: #0b0d10;
+  --panel: #15191f;
+  --panel-2: #1d232b;
+  --text: #f5f7fa;
+  --muted: #9ea8b4;
+  --border: #2d3540;
+  --light-square: #e8edf3;
+  --dark-square: #68788b;
+  --selected: #ffd166;
+  --legal: rgba(28, 194, 118, 0.72);
+  --capture: rgba(255, 95, 86, 0.8);
+  --accent: #6ea8fe;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(110, 168, 254, 0.09),
+      transparent 28rem
+    ),
+    var(--bg);
+  color: var(--text);
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 1px solid var(--border);
+  background: #222934;
+  color: var(--text);
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #2b3441;
+}
+
+button.primary {
+  background: var(--accent);
+  color: #07101f;
+  border-color: transparent;
+  font-weight: 800;
+}
+
+button.mini {
+  padding: 5px 9px;
+  font-size: 12px;
+}
+
+.app-shell {
+  width: min(1240px, calc(100% - 28px));
+  margin: 0 auto;
+  padding: 26px 0 40px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: clamp(26px, 4vw, 42px);
+}
+
+h2 {
+  margin-bottom: 14px;
+  font-size: 17px;
+}
+
+.badge {
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+}
+
+.badge-waiting {
+  background: #3b3420;
+  color: #ffd166;
+}
+
+.badge-ready {
+  background: #133324;
+  color: #72e0a8;
+}
+
+.badge-error {
+  background: #421c1c;
+  color: #ff9d98;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 720px) minmax(300px, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.board-column {
+  min-width: 0;
+}
+
+.board-wrap {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28);
+  background: #111;
+}
+
+.board {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  user-select: none;
+}
+
+.square {
+  position: relative;
+  display: grid;
+  place-items: center;
+  font-size: clamp(30px, 6.3vw, 72px);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.square.light {
+  background: var(--light-square);
+}
+
+.square.dark {
+  background: var(--dark-square);
+}
+
+.square.selected {
+  box-shadow: inset 0 0 0 5px var(--selected);
+}
+
+.square.legal::after {
+  content: "";
+  width: 22%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--legal);
+  position: absolute;
+}
+
+.square.capture::after {
+  content: "";
+  position: absolute;
+  inset: 7%;
+  border-radius: 50%;
+  border: 6px solid var(--capture);
+}
+
+.piece {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.coord {
+  position: absolute;
+  z-index: 3;
+  font-size: 10px;
+  font-weight: 800;
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.coord.file {
+  right: 4px;
+  bottom: 3px;
+}
+
+.coord.rank {
+  left: 4px;
+  top: 3px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.status {
+  min-height: 24px;
+  margin: 12px 0 0;
+  color: var(--muted);
+}
+
+.panel {
+  display: grid;
+  gap: 14px;
+}
+
+.card {
+  padding: 18px;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  border-radius: 16px;
+}
+
+.card-title-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.card-title-row h2 {
+  margin-bottom: 0;
+}
+
+.card-title-row span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.metric {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.metric-label {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-bottom: 5px;
+}
+
+.metric strong {
+  font-size: 18px;
+}
+
+.slider-row {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.slider-row input {
+  width: 100%;
+}
+
+.pv-box {
+  margin-top: 14px;
+  padding: 12px;
+  background: #0e1217;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.pv-box span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+#pv {
+  margin-top: 5px;
+  overflow-wrap: anywhere;
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.move-list {
+  margin-top: 14px;
+  max-height: 210px;
+  overflow: auto;
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Consolas,
+    monospace;
+  font-size: 13px;
+  line-height: 1.75;
+  color: #dce3eb;
+}
+
+.console-card pre {
+  margin: 14px 0 0;
+  height: 190px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #b7c5d6;
+  background: #0b0e12;
+  border: 1px solid #252b34;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+@media (max-width: 930px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .console-card {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 620px) {
+  .app-shell {
+    width: min(100% - 16px, 1240px);
+    padding-top: 14px;
+  }
+
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .panel {
+    grid-template-columns: 1fr;
+  }
+
+  .console-card {
+    grid-column: auto;
+  }
+
+  .controls button {
+    flex: 1 1 40%;
+  }
+}
